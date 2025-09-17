@@ -6,7 +6,7 @@ function vowels_only($text)
 {
     $vowels = ["a", "e", "i", "o", "u", "y"];
 
-    for ($x = 0; $x < strlen($text); $x++) {
+    for ($x = 0; isset($text[$x]); $x++) {
         if (in_array(strtolower($text[$x]), $vowels)) {
             echo $text[$x];
         }

@@ -29,7 +29,7 @@ $conson = [
     "z"
 ];
 
-for ($x = 0; $x < strlen($str); $x++) {
+for ($x = 0; isset($str[$x]); $x++) {
     if (in_array(strtolower($str[$x]), $vowels)) {
         $dic["voyelles"] += 1;
     } else if (in_array(strtolower($str[$x]), $conson)) {

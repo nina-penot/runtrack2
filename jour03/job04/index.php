@@ -6,12 +6,10 @@ $str = "Dans l'espace, personne ne vous entend crier";
 
 function CountManually($text)
 {
-    for ($x = 0; $x < strlen($text); $x++) {
+    for ($x = 0; isset($text[$x]); $x++) {
         echo "Lettre numéro ", $x + 1, " - ", $text[$x], "<br>";
-        if ($x == strlen($text) - 1) {
-            echo "Il y a ", $x + 1, " lettres au total.", "<br>";
-        }
     }
+    echo "Il y a ", $x, " lettres au total.", "<br>";
 }
 
 CountManually($str);
