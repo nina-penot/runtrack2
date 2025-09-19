@@ -1,7 +1,7 @@
 <?php
 
-if (isset($_GET["name"]) and isset($_GET["password"])) {
-    if ($_GET["name"] == "John" and $_GET["password"] == "Rambo") {
+if (isset($_POST["name"]) and isset($_POST["password"])) {
+    if ($_POST["name"] == "John" and $_POST["password"] == "Rambo") {
         echo "Votre pire cauchemard";
     } else {
         echo "C'est pas ma guerre";
@@ -21,9 +21,9 @@ if (isset($_GET["name"]) and isset($_GET["password"])) {
 </head>
 
 <body>
-    <form method="get" action="IAMATEST.php">
+    <form method="post" action="index.php">
         <input type="text" name="name" placeholder="Votre prénom...">
-        <input type="text" name="password" placeholder="Votre nom...">
+        <input type="text" name="password" placeholder="Votre mot de passe...">
         <input type="submit" value="Envoyer">
     </form>
 </body>
