@@ -1,5 +1,28 @@
 <?php
 
+function Style_changer($my_get)
+{
+    switch ($my_get) {
+        case "style1":
+            return "style1.css";
+            break;
+        case "style2":
+            return "style2.css";
+            break;
+        case "style3":
+            return "style3.css";
+            break;
+        default:
+            return "";
+    }
+}
+
+
+if (isset($_GET["style"])) {
+    $my_style = Style_changer($_GET["style"]);
+}
+
+
 //Make a match for each style
 ?>
 
@@ -8,23 +31,7 @@
 <head>
     <meta content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php
-    if (isset($_GET["style"])) {
-        switch ($_GET["style"]) {
-            case "style1":
-                echo '<link rel="stylesheet" href="style1.css">';
-                break;
-            case "style2":
-                echo '<link rel="stylesheet" href="style2.css">';
-                break;
-            case "style3":
-                echo '<link rel="stylesheet" href="style3.css">';
-                break;
-            default:
-                echo '<link rel="stylesheet" href="">';
-        }
-    }
-    ?>
+    <link rel="stylesheet" href="<?= $my_style; ?>">
 </head>
 
 <body>
