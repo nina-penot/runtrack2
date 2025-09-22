@@ -21,9 +21,7 @@ function Style_changer($my_get)
 if (isset($_GET["style"])) {
     $my_style = Style_changer($_GET["style"]);
 }
-
-
-//Make a match for each style
+// <?= est comme un echo
 ?>
 
 <html>
