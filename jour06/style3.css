@@ -1,0 +1,18 @@
+body {
+    background-color: rgb(22, 53, 71);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.my_label {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: greenyellow;
+    font-size: large;
+}
+
+.my_label::before {
+    content: "👽 ";
+}
+
+.my_label::after {
+    content: " 👽";
+}

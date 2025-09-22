@@ -151,7 +151,7 @@ if (isset($_GET["hauteur"]) and isset($_GET["largeur"])) {
 </head>
 
 <body>
-    <form method="get" action="index.php">
+    <form method="get">
         <input type="text" name="hauteur" placeholder="Entrez un nombre hauteur...">
         <input type="text" name="largeur" placeholder="Entrez un nombre largeur...">
         <input type="submit" value="Envoyer">

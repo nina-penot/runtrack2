@@ -1,0 +1,16 @@
+body {
+    background-color: rgb(146, 255, 255);
+}
+
+.my_label {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+}
+
+.my_label::before {
+    content: "🌊 🐚";
+}
+
+.my_label::after {
+    content: "🌊 🐚";
+}

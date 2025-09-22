@@ -1,0 +1,17 @@
+body {
+    background-color: black;
+}
+
+.my_label {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: red;
+    font-size: large;
+}
+
+.my_label::before {
+    content: "🌋 ";
+}
+
+.my_label::after {
+    content: " 🌋";
+}
