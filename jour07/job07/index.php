@@ -11,7 +11,7 @@ function should_Cut($a)
     }
 }
 
-//fonction qui excecute la coupe si should_Cut() true
+//fonction qui excecute la découpe
 function cutter($str)
 {
     $my_words = [];
@@ -55,6 +55,7 @@ function is_majuscule($letter)
     }
 }
 
+//function qui génère une table de lettres majuscules
 function maj_Generator()
 {
     $majs = [];
@@ -85,6 +86,7 @@ function is_minuscule($letter)
     }
 }
 
+//fonction qui génère une table de lettres minuscules
 function minus_Generator()
 {
     $minus = [];
@@ -97,17 +99,29 @@ function minus_Generator()
     return $minus;
 }
 
-//fonction pour 
+//fonction pour calculer la longueur d'une variable parce que je n'ai pas le droit à strlen() >:(
+function len($var)
+{
+    $length = 0;
+    for ($num = 0; isset($var[$num]); $num++) {
+        $length += 1;
+    }
+    return $length;
+}
 
 //GRAS -----------------------------------------------------------------------------------------------
 
 function gras($str)
 {
+    //Découpe $str en mots
     $str_array = cutter($str);
 
+    //parcours tous les mots dans la table
     for ($num = 0; isset($str_array[$num]); $num++) {
+        //Si la première lettre du mot est majuscule, afficher le mot avec des balises de gras
         if (is_majuscule($str_array[$num][0])) {
             echo "<b>", $str_array[$num], "</b>";
+            //sinon, afficher le mot
         } else {
             echo $str_array[$num];
         }
@@ -115,82 +129,39 @@ function gras($str)
 }
 
 //CESAR ------------------------------------------------------------------------------------------------
-
 function cesar($str, $decalage)
 {
-    $letter_table = [
-        ["a", "A"],
-        ["b", "B"],
-        ["c", "C"],
-        ["d", "D"],
-        ["e", "E"],
-        ["f", "F"],
-        ["g", "G"],
-        ["h", "H"],
-        ["i", "I"],
-        ["j", "J"],
-        ["k", "K"],
-        ["l", "L"],
-        ["m", "M"],
-        ["n", "N"],
-        ["o", "O"],
-        ["p", "P"],
-        ["q", "Q"],
-        ["r", "R"],
-        ["s", "S"],
-        ["t", "T"],
-        ["u", "U"],
-        ["v", "V"],
-        ["w", "W"],
-        ["x", "X"],
-        ["y", "Y"],
-        ["z", "Z"]
-    ];
+    //génère une table de minuscules et de majuscules
+    $minuscules = minus_Generator();
+    $majuscules = maj_Generator();
 
-    $table_length = 0;
-    for ($num = 0; isset($letter_table[$num]); $num++) {
-        $table_length += 1;
-    }
+    //retient la longueur de l'alphabet
+    $alphabet_len = len($majuscules);
 
+    //va garder en mémoire le $str transformé
     $new_str = "";
+    //Va être utilisé pour calculer la position de la lettre à récupérer avec le décalage
     $calc = 0;
 
-    //Loop str donné
+    //parcours le $str
     for ($num = 0; isset($str[$num]); $num++) {
-        //Si c'est une majuscule...
+        //si majuscule...
         if (is_majuscule($str[$num])) {
-            for ($x = 0; isset($letter_table[$x]); $x++) {
-                for ($y = 0; isset($letter_table[$x][$y]); $y++) {
-                    if ($str[$num] == $letter_table[$x][$y]) {
-                        //Calcule la position de la lettre à récupérer, si cela va au-delà de la
-                        //longueur de la table, réduit par la longueur de la table jusqu'à
-                        //être moins que la longueur de la table pour trouver un chiffre
-                        $calc = $x + $decalage;
-                        if ($calc > $table_length) {
-                            for ($i = $calc; $i >= $table_length; $i -= $table_length) {
-                                $calc -= $table_length;
-                            }
-                        }
-                        //Une fois fait, ajoute la nouvelle lettre à une variable pour former
-                        //la nouvelle chaine de charactères
-                        $new_str = $new_str . $letter_table[$calc][$y];
-                    }
+            for ($n = 0; isset($majuscules[$n]); $n++) {
+                if ($str[$num] == $majuscules[$n]) {
+                    $calc = ($n + $decalage) % $alphabet_len;
+                    $new_str = $new_str . $majuscules[$calc];
                 }
             }
+            //si minuscule...
         } else if (is_minuscule($str[$num])) {
-            for ($x = 0; isset($letter_table[$x]); $x++) {
-                for ($y = 0; isset($letter_table[$x][$y]); $y++) {
-                    if ($str[$num] == $letter_table[$x][$y]) {
-                        $calc = $x + $decalage;
-                        if ($calc > $table_length) {
-                            for ($i = $calc; $i > $table_length; $i -= $table_length) {
-                                $calc -= $table_length;
-                            }
-                        }
-                        $new_str = $new_str . $letter_table[$calc][$y];
-                    }
+            for ($n = 0; isset($minuscules[$n]); $n++) {
+                if ($str[$num] == $minuscules[$n]) {
+                    $calc = ($n + $decalage) % $alphabet_len;
+                    $new_str = $new_str . $minuscules[$calc];
                 }
             }
+            //Si ce n'est aucun des 2, ajoute simplement l'élément du $str
         } else {
             $new_str = $new_str . $str[$num];
         }
@@ -250,9 +221,6 @@ if (isset($_GET["str"])) {
         plateforme($_GET["str"]);
     }
 }
-
-$table_test = [minus_Generator(), maj_Generator()];
-print_r($table_test);
 
 ?>
 
