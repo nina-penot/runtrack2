@@ -19,32 +19,6 @@ function leetSpeak(string $str)
             $str[$num] = 7;
         } else {
         }
-
-        //Bizarrement switch ne marche pas?
-
-        // switch ($str[$num]) {
-        //     case "A" or "a":
-        //         $str[$num] = 4;
-        //         break;
-        //     case "B" or "b":
-        //         $str[$num] = 8;
-        //         break;
-        //     case "E" or "e":
-        //         $str[$num] = 3;
-        //         break;
-        //     case "G" or "g":
-        //         $str[$num] = 6;
-        //         break;
-        //     case "L" or "l":
-        //         $str[$num] = 1;
-        //         break;
-        //     case "S" or "s":
-        //         $str[$num] = 5;
-        //         break;
-        //     case "T" or "t":
-        //         $str[$num] = 7;
-        //         break;
-        // }
     }
     return $str;
 }
