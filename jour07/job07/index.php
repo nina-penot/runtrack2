@@ -55,6 +55,18 @@ function is_majuscule($letter)
     }
 }
 
+function maj_Generator()
+{
+    $majs = [];
+    for ($l = 'A'; $l <= 'Z'; $l++) {
+        $majs[] = $l;
+        if ($l == 'Z') {
+            break;
+        }
+    }
+    return $majs;
+}
+
 //fonction qui check si une lettre est minuscule
 function is_minuscule($letter)
 {
@@ -72,6 +84,20 @@ function is_minuscule($letter)
         }
     }
 }
+
+function minus_Generator()
+{
+    $minus = [];
+    for ($l = 'a'; $l <= 'z'; $l++) {
+        $minus[] = $l;
+        if ($l == 'z') {
+            break;
+        }
+    }
+    return $minus;
+}
+
+//fonction pour 
 
 //GRAS -----------------------------------------------------------------------------------------------
 
@@ -129,17 +155,24 @@ function cesar($str, $decalage)
     $new_str = "";
     $calc = 0;
 
+    //Loop str donné
     for ($num = 0; isset($str[$num]); $num++) {
+        //Si c'est une majuscule...
         if (is_majuscule($str[$num])) {
             for ($x = 0; isset($letter_table[$x]); $x++) {
                 for ($y = 0; isset($letter_table[$x][$y]); $y++) {
                     if ($str[$num] == $letter_table[$x][$y]) {
+                        //Calcule la position de la lettre à récupérer, si cela va au-delà de la
+                        //longueur de la table, réduit par la longueur de la table jusqu'à
+                        //être moins que la longueur de la table pour trouver un chiffre
                         $calc = $x + $decalage;
                         if ($calc > $table_length) {
                             for ($i = $calc; $i >= $table_length; $i -= $table_length) {
                                 $calc -= $table_length;
                             }
                         }
+                        //Une fois fait, ajoute la nouvelle lettre à une variable pour former
+                        //la nouvelle chaine de charactères
                         $new_str = $new_str . $letter_table[$calc][$y];
                     }
                 }
@@ -171,25 +204,7 @@ function cesar($str, $decalage)
 function plateforme($str)
 {
     //Découper les mots et garder en mémoire les mots et les séparateurs
-    $my_words = [];
-    $word = "";
-
-    for ($num = 0; isset($str[$num]); $num++) {
-        if (should_Cut($str[$num])) {
-            if ($word == "") {
-                $my_words[] = $str[$num];
-            } else {
-                $my_words[] = $word;
-                $my_words[] = $str[$num];
-                $word = "";
-            }
-        } else {
-            $word = $word . $str[$num];
-        }
-    }
-    if ($word != "") {
-        $my_words[] = $word;
-    }
+    $my_words = cutter($str);
 
     //fonction "me" à la fin check
     function has_me($word)
@@ -236,7 +251,8 @@ if (isset($_GET["str"])) {
     }
 }
 
-gras("Bayblade forever");
+$table_test = [minus_Generator(), maj_Generator()];
+print_r($table_test);
 
 ?>
 
