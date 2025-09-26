@@ -1,0 +1,2 @@
+USE jour09;
+SELECT * FROM `etudiants` WHERE YEAR(naissance) BETWEEN 1998 AND 2018; 
