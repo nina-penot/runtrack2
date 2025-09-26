@@ -3,17 +3,20 @@
 $style = "display: block;";
 if (isset($_GET["prenom"])) {
     $prenom = $_GET["prenom"];
+    if (!isset($_COOKIE["prenom"])) {
+        $_COOKIE["prenom"] = $prenom;
+        setcookie("prenom", $_GET["prenom"], time() + 5000);
+    } else if (isset($_COOKIE["prenom"]) and $_COOKIE["prenom"] != $prenom and !isset($_GET["deco"])) {
+        $_COOKIE["prenom"] = $prenom;
+        setcookie("prenom", $_GET["prenom"], time() + 5000);
+    } else if (isset($_COOKIE["prenom"]) and $_COOKIE["prenom"] == $prenom and !isset($_GET["deco"])) {
+        $style = "display: none;";
+        echo "Bonjour ", $prenom;
+    } else {
+        $style = "display: block;";
+    }
 }
 
-if (!isset($_COOKIE["prenom"])) {
-    $_COOKIE["prenom"] = $prenom;
-    setcookie("prenom", $_GET["prenom"], time() + 5000);
-} else if (isset($_COOKIE["prenom"]) and $_COOKIE["prenom"] == $prenom and !isset($_GET["deco"])) {
-    $style = "display: none;";
-    echo "Bonjour ", $prenom;
-} else {
-    $style = "display: block;";
-}
 
 if (isset($_GET["deco"])) {
     setcookie("prenom", $_GET["prenom"], time() - 1);
