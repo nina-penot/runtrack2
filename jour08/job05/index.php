@@ -9,9 +9,9 @@ session_start();
 
 //MY CONST VARS------------------------------------
 //players
-$player_x = "X";
-$player_o = "O";
-$empty_spot = "-";
+$player_x = "✖️";
+$player_o = "⭕";
+$empty_spot = " ";
 
 //style states
 $hide = "display: none";
@@ -96,14 +96,14 @@ if (isset($_GET["tile"])) {
     $coords = makeCoords($_GET["tile"]);
     $coord_row = $coords[0];
     $coord_col = $coords[1];
-    if ($_SESSION["board"][$coord_row][$coord_col] == "-") {
+    if ($_SESSION["board"][$coord_row][$coord_col] == $empty_spot) {
         $_SESSION["board"][$coord_row][$coord_col] = $_SESSION["player"];
         if (victoryCheck($_SESSION["board"], $_SESSION["player"])) {
             echo "JOUEUR ", $_SESSION["player"], " A GAGNE!!", "<br>";
             $_SESSION["board"] = $empty_board;
             $_SESSION["player"] = $player_x;
         } else if (nulCheck($_SESSION["board"], $empty_spot)) {
-            echo "match nul... :(";
+            echo "Match nul... :(";
             $_SESSION["board"] = $empty_board;
             $_SESSION["player"] = $player_x;
         }
@@ -117,7 +117,7 @@ if (isset($_GET["tile"])) {
 
 if (isset($_GET["reset"])) {
     $_SESSION["board"] = $empty_board;
-    $_SESSION["player"] = "X";
+    $_SESSION["player"] = $player_x;
     $_SESSION["game_state"] = false;
 }
 
@@ -134,6 +134,8 @@ if (isset($_GET["reset"])) {
         .button_game {
             width: 32px;
             height: 32px;
+            font-size: 16px;
+            text-align: center;
         }
     </style>
 </head>
