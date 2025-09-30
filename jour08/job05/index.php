@@ -84,12 +84,34 @@ function nulCheck($grid, $empty)
     return true;
 }
 
+//Reset game
+function resetGame()
+{
+    global $empty_board;
+    global $player_x;
+    $_SESSION["board"] = $empty_board;
+    $_SESSION["player"] = $player_x;
+}
+
 //CODE------------------------------------------
+
+if (isset($_GET["start"])) {
+    $_SESSION["game_state"] = true;
+    $style_game = $show;
+    $style_start = $hide;
+}
+
+if ($_SESSION["game_state"] == true) {
+    $style_game = $show;
+    $style_start = $hide;
+} else {
+    $style_game = $hide;
+    $style_start = $show;
+}
 
 if (!isset($_SESSION["board"])) {
     $_SESSION["board"] = $empty_board;
     $_SESSION["player"] = $player_x;
-    $_SESSION["game_state"] = false;
 }
 
 if (isset($_GET["tile"])) {
@@ -100,12 +122,10 @@ if (isset($_GET["tile"])) {
         $_SESSION["board"][$coord_row][$coord_col] = $_SESSION["player"];
         if (victoryCheck($_SESSION["board"], $_SESSION["player"])) {
             echo "JOUEUR ", $_SESSION["player"], " A GAGNE!!", "<br>";
-            $_SESSION["board"] = $empty_board;
-            $_SESSION["player"] = $player_x;
+            resetGame();
         } else if (nulCheck($_SESSION["board"], $empty_spot)) {
             echo "Match nul... :(";
-            $_SESSION["board"] = $empty_board;
-            $_SESSION["player"] = $player_x;
+            resetGame();
         }
         if ($_SESSION["player"] == $player_x) {
             $_SESSION["player"] = $player_o;
@@ -116,9 +136,14 @@ if (isset($_GET["tile"])) {
 }
 
 if (isset($_GET["reset"])) {
-    $_SESSION["board"] = $empty_board;
-    $_SESSION["player"] = $player_x;
+    resetGame();
+}
+
+if (isset($_GET["exit"])) {
+    $style_game = $hide;
+    $style_start = $show;
     $_SESSION["game_state"] = false;
+    resetGame();
 }
 
 ?>
@@ -141,10 +166,10 @@ if (isset($_GET["reset"])) {
 </head>
 
 <!-- MENU START GAME -->
-<!-- <form style="<?= $style_start ?>" method="get">
+<form style="<?= $style_start ?>" method="get">
     <div>GAME START</div>
     <button name="start" value="false">START</button>
-</form> -->
+</form>
 
 <!-- JEU -->
 <form style="<?= $style_game ?>" method="get">
@@ -160,6 +185,7 @@ if (isset($_GET["reset"])) {
         <?php endfor; ?>
     </table>
     <button name="reset">RESET</button>
+    <button name="exit">EXIT</button>
 </form>
 
 
